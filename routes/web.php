@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProdukAdminController;
+use App\Http\Controllers\ProdukMemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,13 @@ Route::group(['middleware' => ['auth']], function () {
 
             //Produk
             Route::resource('produk', ProdukAdminController::class)->names('produks');
+
+            Route::resource('produk-member', ProdukMemberController::class)->names('produks.members');
+            Route::post('/produk-member/save-session', [ProdukMemberController::class, 'saveSession'])->name('produks.members.saveSession');
+            Route::post('/produk-members/update-session', [ProdukMemberController::class, 'updateSession'])->name('produks.members.updateSession');
+            Route::delete('/produk-members/delete-session/{index}', [ProdukMemberController::class, 'deleteSession'])->name('produks.members.deleteSession');
+
+
 
             //Penjualan
             Route::prefix('penjualan')->group(function () {
