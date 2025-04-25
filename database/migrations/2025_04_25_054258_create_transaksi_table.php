@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->integer('kode_trx');
-            $table->integer('id_produk');
-            $table->integer('id_member');
+            $table->unsignedBigInteger('id_produk');
+            $table->unsignedBigInteger('id_member');
             $table->date('tanggal');
             $table->integer('jumlah_terjual');
             $table->timestamps();
+
+            $table->foreign('id_produk')->references('id')->on('produk')->onDelete('cascade');
+            $table->foreign('id_member')->references('id')->on('member')->onDelete('cascade');
         });
     }
 
