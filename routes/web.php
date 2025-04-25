@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ProdukAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,9 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
             });
 
             //Produk
-            Route::prefix('produk')->group(function () {
-                Route::get('/', [AdminController::class, 'showProduk'])->name('admin.produk');
-            });
+            Route::resource('produk', ProdukAdminController::class)->names('produks');
 
             //Penjualan
             Route::prefix('penjualan')->group(function () {
@@ -53,8 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('member')->group(function () {
             Route::get('/dashboard', [MemberController::class, 'index'])->name('member');
 
-             //Member
-             Route::prefix('stok')->group(function () {
+            //Member
+            Route::prefix('stok')->group(function () {
                 Route::get('/', [MemberController::class, 'showStokMember'])->name('member.stok');
             });
 
