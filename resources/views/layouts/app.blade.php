@@ -37,6 +37,9 @@
     <script src="{{ asset('assets/js/datatable/dataTables.js') }}"></script>
     <script src="{{ asset('assets/js/datatable/dataTables.bootstrap5.js') }}"></script>
 
+    {{-- Select Option Search --}}
+    <link href="{{ asset('assets/css/select2.css') }}" rel="stylesheet" />
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->

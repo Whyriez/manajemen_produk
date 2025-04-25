@@ -28,9 +28,8 @@
             <form method="GET" action="">
                 <div class="mb-3">
                     <label for="id_member" class="form-label">Pilih Member</label>
-                    <select class="form-select" name="id_member" id="id_member" required onchange="this.form.submit()">
-                        <option value="" disabled {{ request('id_member') ? '' : 'selected' }}>-- Pilih Member --
-                        </option>
+                    <select class="form-control select2" name="id_member" id="id_member" required onchange="this.form.submit()">
+                        <option value="" disabled {{ request('id_member') ? '' : 'selected' }}>-- Pilih Member --</option>
                         @foreach ($members as $member)
                             <option value="{{ $member->id }}" {{ request('id_member') == $member->id ? 'selected' : '' }}>
                                 {{ $member->nama }}
@@ -39,6 +38,7 @@
                     </select>
                 </div>
             </form>
+            
 
 
 
@@ -233,6 +233,14 @@
 
     <script>
         new DataTable('#pmember');
+        $(document).ready(function() {
+            // Inisialisasi Select2 pada elemen select dengan id 'id_member'
+            $('#id_member').select2({
+                placeholder: "-- Pilih Member --", // Placeholder saat dropdown kosong
+                allowClear: true // Membolehkan opsi untuk clear pilihan
+            });
+        });
+
 
         document.querySelectorAll('[data-bs-target="#staticBackdrop"]').forEach(button => {
             button.addEventListener('click', () => {
