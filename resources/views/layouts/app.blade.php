@@ -31,6 +31,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('assets/css/style-preset.css') }}">
 
+    {{-- Datatable --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.css') }}">
+    <script src="{{ asset('assets/js/datatable/jquery-3.7.1.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/dataTables.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/dataTables.bootstrap5.js') }}"></script>
+
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
@@ -51,7 +57,7 @@
   
 
     <!-- [Page Specific JS] start -->
-    <script src="{{ asset('assets/js/plugins/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/apexcharts.min.js') }}"></>
     <script src="{{ asset('assets/js/pages/dashboard-default.js') }}"></script>
     <!-- [Page Specific JS] end -->
     <!-- Required Js -->
