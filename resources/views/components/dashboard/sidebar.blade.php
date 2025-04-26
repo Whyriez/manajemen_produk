@@ -28,9 +28,15 @@
                         </a>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('admin.produk') }}" class="pc-link">
+                        <a href="{{ route('produks.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-inbox"></i></span>
                             <span class="pc-mtext">Produk</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('produks.members.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-inbox"></i></span>
+                            <span class="pc-mtext">Produk Member</span>
                         </a>
                     </li>
                     <li class="pc-item">
