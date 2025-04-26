@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MemberAdminController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,9 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/dashboard', [AdminController::class, 'index'])->name('admin');
 
             //Member
-            Route::prefix('member')->group(function () {
-                Route::get('/', [AdminController::class, 'showMember'])->name('admin.member');
-            });
+            Route::resource('member', MemberAdminController::class)->names('admin.member');
 
             //Produk
             Route::prefix('produk')->group(function () {

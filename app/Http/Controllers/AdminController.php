@@ -11,9 +11,6 @@ class AdminController extends Controller
         return view('pages.admin.index');
     }
 
-    public function showMember(){
-        return view('pages.admin.member');
-    }
 
     public function showProduk(){
         return view('pages.admin.produk');
