@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MemberAdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProdukAdminController;
 use App\Http\Controllers\ProdukMemberController;
@@ -34,9 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/dashboard', [AdminController::class, 'index'])->name('admin');
 
             //Member
-            Route::prefix('member')->group(function () {
-                Route::get('/', [AdminController::class, 'showMember'])->name('admin.member');
-            });
+            Route::resource('member', MemberAdminController::class)->names('admin.member');
 
             //Produk
             Route::resource('produk', ProdukAdminController::class)->names('produks');

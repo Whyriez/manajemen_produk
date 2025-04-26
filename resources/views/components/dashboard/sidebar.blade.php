@@ -22,7 +22,7 @@
                         <i class="ti ti-dashboard"></i>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('admin.member') }}" class="pc-link">
+                        <a href="{{ route('admin.member.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-user"></i></span>
                             <span class="pc-mtext">Member</span>
                         </a>
