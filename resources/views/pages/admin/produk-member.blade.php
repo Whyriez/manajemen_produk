@@ -170,9 +170,6 @@
                 </div>
             @endif
 
-
-
-
         </div>
     </div>
     <!-- [ Main Content ] end -->
