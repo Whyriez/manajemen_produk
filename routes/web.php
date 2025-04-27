@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\AddProdukMemberController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MemberAdminController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukAdminController;
 use App\Http\Controllers\ProdukMemberController;
+use App\Http\Controllers\StokMemberController;
+use App\Http\Controllers\TransaksiMemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,9 +52,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 
             //Penjualan
-            Route::prefix('penjualan')->group(function () {
-                Route::get('/', [AdminController::class, 'showPenjualan'])->name('admin.penjualan');
-            });
+            Route::resource('penjualan', PenjualanController::class)->names('penjualans');
+            // Route::prefix('penjualan')->group(function () {
+            //     Route::get('/', [AdminController::class, 'showPenjualan'])->name('admin.penjualan');
+            // });
         });
     });
 
@@ -60,19 +65,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/dashboard', [MemberController::class, 'index'])->name('member');
 
             //Member
-            Route::prefix('stok')->group(function () {
-                Route::get('/', [MemberController::class, 'showStokMember'])->name('member.stok');
-            });
-
+            Route::resource('stok', StokMemberController::class)->names('stoks');
             //Produk
-            Route::prefix('produk')->group(function () {
-                Route::get('/', [MemberController::class, 'showProduk'])->name('member.produk');
-            });
+            Route::resource('produk', AddProdukMemberController::class)->names('addproduks');
 
             //Penjualan
-            Route::prefix('transaksi')->group(function () {
-                Route::get('/', [MemberController::class, 'showTransaksi'])->name('member.transaksi');
-            });
+            Route::resource('transaksi', TransaksiMemberController::class)->names('transaksis');
         });
     });
 });

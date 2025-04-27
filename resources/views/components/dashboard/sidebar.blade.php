@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('admin.penjualan') }}" class="pc-link">
+                        <a href="{{ route('penjualans.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-exchange"></i></span>
                             <span class="pc-mtext">Penjualan</span>
                         </a>
@@ -58,19 +58,19 @@
                         <i class="ti ti-dashboard"></i>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('member.stok') }}" class="pc-link">
+                        <a href="{{ route('stoks.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-box"></i></span>
                             <span class="pc-mtext">Stok Saya</span>
                         </a>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('member.produk') }}" class="pc-link">
+                        <a href="{{ route('addproduks.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-inbox"></i></span>
                             <span class="pc-mtext">Produk</span>
                         </a>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('member.transaksi') }}" class="pc-link">
+                        <a href="{{ route('transaksis.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-exchange"></i></span>
                             <span class="pc-mtext">Riwayat Transaksi</span>
                         </a>

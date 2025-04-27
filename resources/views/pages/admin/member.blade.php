@@ -16,7 +16,7 @@
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.member.index') }}">Member</a></li>
+                                <li class="breadcrumb-item active">Member</li>
                             </ul>
                         </div>
                     </div>

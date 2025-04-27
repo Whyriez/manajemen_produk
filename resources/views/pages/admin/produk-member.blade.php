@@ -16,7 +16,7 @@
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('produks.members.index') }}">Produk Member</a>
+                                <li class="breadcrumb-item active">Produk Member
                                 </li>
                             </ul>
                         </div>
@@ -28,8 +28,10 @@
             <form method="GET" action="">
                 <div class="mb-3">
                     <label for="id_member" class="form-label">Pilih Member</label>
-                    <select class="form-control select2" name="id_member" id="id_member" required onchange="this.form.submit()">
-                        <option value="" disabled {{ request('id_member') ? '' : 'selected' }}>-- Pilih Member --</option>
+                    <select class="form-control select2" name="id_member" id="id_member" required
+                        onchange="this.form.submit()">
+                        <option value="" disabled {{ request('id_member') ? '' : 'selected' }}>-- Pilih Member --
+                        </option>
                         @foreach ($members as $member)
                             <option value="{{ $member->id }}" {{ request('id_member') == $member->id ? 'selected' : '' }}>
                                 {{ $member->nama }}
@@ -38,7 +40,7 @@
                     </select>
                 </div>
             </form>
-            
+
 
 
 
@@ -108,23 +110,22 @@
             </div>
 
             @if (session('produk_member'))
-
-                <div class="card mt-4">
+                <div class="card mt-4 shadow-sm border-0">
                     <form action="{{ route('produks.members.saveSession') }}" method="POST">
                         @csrf
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <span>Produk Member Sementara</span>
+                        <div class="card-header d-flex justify-content-between align-items-center bg-light p-3">
+                            <h5 class="mb-0">Produk Member Sementara</h5>
                             <button type="submit" class="btn btn-success btn-sm">Simpan</button>
                         </div>
                     </form>
                     <div class="card-body table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-light">
                                 <tr>
                                     <th>Nama Member</th>
                                     <th>Nama Produk</th>
                                     <th>Jumlah</th>
-                                    <th>Aksi</th> <!-- Tambahkan kolom aksi -->
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -141,14 +142,16 @@
                                         <td>{{ $memberName }}</td>
                                         <td>{{ $produkName }}</td>
                                         <td>{{ $item['jumlah'] }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-primary edit-session-btn"
+                                        <td class="d-flex justify-content-start">
+                                            <!-- Tombol Edit -->
+                                            <button type="button" class="btn btn-sm btn-primary me-2 edit-session-btn"
                                                 data-index="{{ $index }}" data-id_produk="{{ $item['id_produk'] }}"
                                                 data-id_member="{{ $item['id_member'] }}"
                                                 data-jumlah="{{ $item['jumlah'] }}" data-bs-toggle="modal"
                                                 data-bs-target="#editSessionModal">
                                                 Edit
                                             </button>
+                                            <!-- Form Hapus -->
                                             <form action="{{ route('produks.members.deleteSession', $index) }}"
                                                 method="POST" class="d-inline">
                                                 @csrf
@@ -162,12 +165,11 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-
                         </table>
                     </div>
                 </div>
-
             @endif
+
 
 
 

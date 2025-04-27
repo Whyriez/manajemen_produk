@@ -1,140 +1,64 @@
 @extends('layouts.app')
-@section('title', 'Member')
-@section('member', 'active')
+@section('title', 'Stok Saya')
+@section('stok', 'active')
 
 @section('content')
-    <!-- [ Main Content ] start -->
-    <div class="pc-container">
-        <div class="pc-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <div class="page-header-title">
-                                <h5 class="m-b-10">Dashboard</h5>
-                            </div>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.member') }}">Member</a></li>
-                            </ul>
+<div class="pc-container">
+    <div class="pc-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Stok Saya</h5>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
-            <h5 class="mb-3">Recent Orders</h5>
-            <div class="card tbl-card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-borderless mb-0">
-                            <thead>
-                                <tr>
-                                    <th>TRACKING NO.</th>
-                                    <th>PRODUCT NAME</th>
-                                    <th>TOTAL ORDER</th>
-                                    <th>STATUS</th>
-                                    <th class="text-end">TOTAL AMOUNT</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Camera Lens</td>
-                                    <td>40</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                                    </td>
-                                    <td class="text-end">$40,570</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Laptop</td>
-                                    <td>300</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                                    </td>
-                                    <td class="text-end">$180,139</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Mobile</td>
-                                    <td>355</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span>
-                                    </td>
-                                    <td class="text-end">$180,139</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Camera Lens</td>
-                                    <td>40</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                                    </td>
-                                    <td class="text-end">$40,570</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Laptop</td>
-                                    <td>300</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                                    </td>
-                                    <td class="text-end">$180,139</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Mobile</td>
-                                    <td>355</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span>
-                                    </td>
-                                    <td class="text-end">$180,139</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Camera Lens</td>
-                                    <td>40</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                                    </td>
-                                    <td class="text-end">$40,570</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Laptop</td>
-                                    <td>300</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                                    </td>
-                                    <td class="text-end">$180,139</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Mobile</td>
-                                    <td>355</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span>
-                                    </td>
-                                    <td class="text-end">$180,139</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#" class="text-muted">84564564</a></td>
-                                    <td>Mobile</td>
-                                    <td>355</td>
-                                    <td><span class="d-flex align-items-center gap-2"><i
-                                                class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span>
-                                    </td>
-                                    <td class="text-end">$180,139</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('admin') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Stok Saya</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <h5 class="mb-3">Daftar Stok Produk</h5>
+
+        <div class="card tbl-card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Nama Produk</th>
+                                <th>Jumlah Stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($stok as $s)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $s->nama_produk }}</td>
+                                    <td>{{ $s->jumlah_terima }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Produk</th>
+                                <th>Jumlah Stok</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <!-- [ Main Content ] end -->
+</div>
+
+<script>
+    new DataTable('#example');
+</script>
 @endsection
