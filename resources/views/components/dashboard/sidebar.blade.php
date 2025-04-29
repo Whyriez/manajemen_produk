@@ -1,12 +1,17 @@
 <!-- [ Sidebar Menu ] start -->
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
-        <div class="m-header">
-            <a href="../dashboard/index.html" class="b-brand text-primary">
-                <!-- ========   Change your logo from here   ============ -->
-                <img src="../assets/images/logo-dark.svg" class="img-fluid logo-lg" alt="logo">
+        <div class="m-header" style="padding: 10px; background: none;">
+            <a href="#" class="b-brand text-primary" style="display: flex; align-items: center; text-decoration: none;">
+                <!-- Logo -->
+                <img src="../assets/images/logo/logomlm.png" alt="logo"
+                     style="max-width: 40px; height: auto; margin-right: 10px; display: block; background: none;">
+        
+                <!-- Label -->
+                <span style="font-size: 18px; font-weight: bold; color: #ff1100;">PT BEST</span>
             </a>
         </div>
+        
         <div class="navbar-content">
             <ul class="pc-navbar">
                 @if (Auth::user()->role == 'admin')

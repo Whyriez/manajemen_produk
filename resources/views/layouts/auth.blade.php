@@ -50,20 +50,21 @@
     <div class="auth-main">
         <div class="auth-wrapper v3">
             <div class="auth-form">
-                <div class="auth-header">
-                    <a href="#"><img src="../assets/images/logo-dark.svg" alt="img"></a>
+                <div class="auth-header" style="background: none;">
+                    <a href="#" style="background: none;">
+                        <img src="../assets/images/logo/logomlm.png" alt="img" style="max-width: 100px; height: auto; display: block; margin: 0 auto; background: none;">
+                    </a>
                 </div>
-              
+                
+
                 @yield('content')
                 <div class="auth-footer row">
                     <!-- <div class=""> -->
-                    <div class="col my-1">
+                    {{-- <div class="col my-1">
                         <p class="m-0">Copyright © <a href="#">Codedthemes</a></p>
-                    </div>
+                    </div> --}}
                     <div class="col-auto my-1">
                         <ul class="list-inline footer-link mb-0">
-                            <li class="list-inline-item"><a href="#">Home</a></li>
-                            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
                             <li class="list-inline-item"><a href="#">Contact us</a></li>
                         </ul>
                     </div>

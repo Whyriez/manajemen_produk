@@ -93,6 +93,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th class="text-center">#</th>
                                     <th>Name</th>
                                     <th>Username</th>
                                     <th>Role</th>

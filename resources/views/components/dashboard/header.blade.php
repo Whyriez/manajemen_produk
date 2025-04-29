@@ -5,16 +5,19 @@
             <ul class="list-unstyled">
                 <!-- ======= Menu collapse Icon ===== -->
                 <li class="pc-h-item pc-sidebar-collapse">
-                    <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+                    {{-- <a href="#" class="pc-head-link ms-0" >
                         <i class="ti ti-menu-2"></i>
-                    </a>
+                    </a> --}}
+                    <button type="button" class="pc-head-link ms-0" id="sidebar-hide">
+                        <i class="ti ti-menu-2"></i>
+                    </button>
                 </li>
                 <li class="pc-h-item pc-sidebar-popup">
-                    <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+                    <button type="button" class="pc-head-link ms-0" id="mobile-collapse">
                         <i class="ti ti-menu-2"></i>
-                    </a>
+                    </button>
                 </li>
-                <li class="dropdown pc-h-item d-inline-flex d-md-none">
+                {{-- <li class="dropdown pc-h-item d-inline-flex d-md-none">
                     <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown"
                         href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="ti ti-search"></i>
@@ -28,13 +31,13 @@
                             </div>
                         </form>
                     </div>
-                </li>
-                <li class="pc-h-item d-none d-md-inline-flex">
+                </li> --}}
+                {{-- <li class="pc-h-item d-none d-md-inline-flex">
                     <form class="header-search">
                         <i data-feather="search" class="icon-search"></i>
                         <input type="search" class="form-control" placeholder="Search here. . .">
                     </form>
-                </li>
+                </li> --}}
             </ul>
         </div>
         <!-- [Mobile Media Block end] -->
