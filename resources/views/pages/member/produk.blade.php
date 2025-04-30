@@ -45,7 +45,7 @@
 
                     <h5 class="mb-3">Form Tambah Transaksi</h5>
 
-                    <form action="{{ route('produks.store') }}" method="POST">
+                    <form action="{{ route('addproduks.store') }}" method="POST">
                         @csrf
 
                         <div class="mb-3">
