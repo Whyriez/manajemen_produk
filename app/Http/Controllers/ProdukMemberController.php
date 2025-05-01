@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DistribusiProduk;
 use App\Models\Member;
 use App\Models\Produk;
 use App\Models\ProdukMember;
@@ -55,39 +56,61 @@ class ProdukMemberController extends Controller
     public function saveSession(Request $request)
     {
         $produkMember = session('produk_member', []);
-    
+        $adminId = auth()->id(); // Ambil ID admin yang sedang login
+
         foreach ($produkMember as $item) {
-            // Cek apakah produk ada di database
             $produk = Produk::find($item['id_produk']);
-    
+
             if (!$produk) {
                 return redirect()->back()->with('error', 'Produk tidak ditemukan.');
             }
 
-            if ($item['jumlah'] > $produk->stok) {
+            $produkMemberEntry = ProdukMember::where('id_produk', $item['id_produk'])
+                ->where('id_member', $item['id_member'])
+                ->first();
+
+            $stokAvailable = $produk->stok;
+            if ($produkMemberEntry) {
+                $stokAvailable += $produkMemberEntry->jumlah_terima;
+            }
+
+            if ($item['jumlah'] > $stokAvailable) {
                 return redirect()->back()->with('error', "Jumlah produk {$produk->nama} melebihi stok yang tersedia.");
             }
-    
-            $exists = ProdukMember::where('id_produk', $item['id_produk'])
-                ->where('id_member', $item['id_member'])
-                ->exists();
-    
-            if (!$exists) {
+
+            if ($produkMemberEntry) {
+                $produkMemberEntry->jumlah_terima += $item['jumlah'];
+                $produkMemberEntry->save();
+
+                $produk->stok -= $item['jumlah'];
+                $produk->save();
+            } else {
                 ProdukMember::create([
                     'id_produk' => $item['id_produk'],
                     'id_member' => $item['id_member'],
                     'jumlah_terima' => $item['jumlah'],
                 ]);
+
                 $produk->stok -= $item['jumlah'];
                 $produk->save();
             }
+
+            // Catat distribusi
+            DistribusiProduk::create([
+                'id_member' => $item['id_member'],
+                'id_produk' => $item['id_produk'],
+                'id_admin' => $adminId,
+                'jumlah' => $item['jumlah'],
+            ]);
         }
 
         session()->forget('produk_member');
-    
+
         return redirect()->back()->with('success', 'Data produk member berhasil disimpan ke database.');
     }
-    
+
+
+
     public function updateSession(Request $request)
     {
         $index = $request->input('index');

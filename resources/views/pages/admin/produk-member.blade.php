@@ -233,10 +233,9 @@
     <script>
         new DataTable('#pmember');
         $(document).ready(function() {
-            // Inisialisasi Select2 pada elemen select dengan id 'id_member'
             $('#id_member').select2({
-                placeholder: "-- Pilih Member --", // Placeholder saat dropdown kosong
-                allowClear: true // Membolehkan opsi untuk clear pilihan
+                placeholder: "-- Pilih Member --", 
+                allowClear: true
             });
         });
 

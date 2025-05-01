@@ -45,6 +45,12 @@
                         </a>
                     </li>
                     <li class="pc-item">
+                        <a href="{{ route('distribusi-produks.index') }}" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-inbox"></i></span>
+                            <span class="pc-mtext">Distribusi Produk Member</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
                         <a href="{{ route('penjualans.index') }}" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-exchange"></i></span>
                             <span class="pc-mtext">Penjualan</span>

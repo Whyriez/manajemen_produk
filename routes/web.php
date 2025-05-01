@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddProdukMemberController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DistribusiProdukController;
 use App\Http\Controllers\MemberAdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PenjualanController;
@@ -49,13 +50,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/produk-members/update-session', [ProdukMemberController::class, 'updateSession'])->name('produks.members.updateSession');
             Route::delete('/produk-members/delete-session/{index}', [ProdukMemberController::class, 'deleteSession'])->name('produks.members.deleteSession');
 
-
+             //Distribusi Produk
+             Route::resource('distribusi-produk', DistribusiProdukController::class)->names('distribusi-produks');
 
             //Penjualan
             Route::resource('penjualan', PenjualanController::class)->names('penjualans');
-            // Route::prefix('penjualan')->group(function () {
-            //     Route::get('/', [AdminController::class, 'showPenjualan'])->name('admin.penjualan');
-            // });
         });
     });
 
