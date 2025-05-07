@@ -16,7 +16,7 @@ class MemberAdminController extends Controller
     public function index()
     {
         $member = User::where('role', 'member')->get();
-        return view('pages.admin.member', compact('member'));
+        return view('pages.superadmin.member', compact('member'));
     }
 
     /**

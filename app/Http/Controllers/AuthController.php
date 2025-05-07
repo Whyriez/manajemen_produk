@@ -26,12 +26,14 @@ class AuthController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-     
+
         $credent = $request->only('username', 'password');
         if (Auth::attempt($credent)) {
             $user = Auth::user();
             if ($user->role == 'admin') {
                 return redirect()->route('admin');
+            } else if ($user->role == 'superadmin') {
+                return redirect()->route('superadmin');
             } else {
                 return redirect()->route('member');
             }
