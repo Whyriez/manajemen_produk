@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\ProdukMember;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProdukMemberController extends Controller
 {
@@ -56,57 +57,61 @@ class ProdukMemberController extends Controller
     public function saveSession(Request $request)
     {
         $produkMember = session('produk_member', []);
-        $adminId = auth()->id(); // Ambil ID admin yang sedang login
+        $adminId = auth()->id();
 
-        foreach ($produkMember as $item) {
-            $produk = Produk::find($item['id_produk']);
+        DB::beginTransaction();
 
-            if (!$produk) {
-                return redirect()->back()->with('error', 'Produk tidak ditemukan.');
-            }
+        try {
+            foreach ($produkMember as $item) {
+                $produk = Produk::lockForUpdate()->find($item['id_produk']);
 
-            $produkMemberEntry = ProdukMember::where('id_produk', $item['id_produk'])
-                ->where('id_member', $item['id_member'])
-                ->first();
+                if (!$produk) {
+                    DB::rollBack();
+                    return redirect()->back()->with('error', 'Produk tidak ditemukan.');
+                }
 
-            $stokAvailable = $produk->stok;
-            if ($produkMemberEntry) {
-                $stokAvailable += $produkMemberEntry->jumlah_terima;
-            }
+                $stokAvailable = $produk->stok;
 
-            if ($item['jumlah'] > $stokAvailable) {
-                return redirect()->back()->with('error', "Jumlah produk {$produk->nama} melebihi stok yang tersedia.");
-            }
+                if ($item['jumlah'] > $stokAvailable) {
+                    DB::rollBack();
+                    return redirect()->back()->with('error', "Jumlah produk {$produk->nama} melebihi stok yang tersedia ({$stokAvailable}).");
+                }
 
-            if ($produkMemberEntry) {
-                $produkMemberEntry->jumlah_terima += $item['jumlah'];
-                $produkMemberEntry->save();
+                $produkMemberEntry = ProdukMember::where('id_produk', $item['id_produk'])
+                    ->where('id_member', $item['id_member'])
+                    ->first();
+
+                if ($produkMemberEntry) {
+                    $produkMemberEntry->jumlah_terima += $item['jumlah'];
+                    $produkMemberEntry->save();
+                } else {
+                    ProdukMember::create([
+                        'id_produk' => $item['id_produk'],
+                        'id_member' => $item['id_member'],
+                        'jumlah_terima' => $item['jumlah'],
+                    ]);
+                }
 
                 $produk->stok -= $item['jumlah'];
                 $produk->save();
-            } else {
-                ProdukMember::create([
-                    'id_produk' => $item['id_produk'],
+
+
+                DistribusiProduk::create([
                     'id_member' => $item['id_member'],
-                    'jumlah_terima' => $item['jumlah'],
+                    'id_produk' => $item['id_produk'],
+                    'id_admin' => $adminId,
+                    'jumlah' => $item['jumlah'],
                 ]);
-
-                $produk->stok -= $item['jumlah'];
-                $produk->save();
             }
 
-            // Catat distribusi
-            DistribusiProduk::create([
-                'id_member' => $item['id_member'],
-                'id_produk' => $item['id_produk'],
-                'id_admin' => $adminId,
-                'jumlah' => $item['jumlah'],
-            ]);
+            DB::commit();
+            session()->forget('produk_member');
+
+            return redirect()->back()->with('success', 'Data produk member berhasil disimpan ke database.');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
         }
-
-        session()->forget('produk_member');
-
-        return redirect()->back()->with('success', 'Data produk member berhasil disimpan ke database.');
     }
 
 
