@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DistribusiProduk;
 use App\Models\Member;
 use App\Models\Produk;
 use App\Models\ProdukMember;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProdukMemberController extends Controller
 {
@@ -55,39 +57,65 @@ class ProdukMemberController extends Controller
     public function saveSession(Request $request)
     {
         $produkMember = session('produk_member', []);
-    
-        foreach ($produkMember as $item) {
-            // Cek apakah produk ada di database
-            $produk = Produk::find($item['id_produk']);
-    
-            if (!$produk) {
-                return redirect()->back()->with('error', 'Produk tidak ditemukan.');
-            }
+        $adminId = auth()->id();
 
-            if ($item['jumlah'] > $produk->stok) {
-                return redirect()->back()->with('error', "Jumlah produk {$produk->nama} melebihi stok yang tersedia.");
-            }
-    
-            $exists = ProdukMember::where('id_produk', $item['id_produk'])
-                ->where('id_member', $item['id_member'])
-                ->exists();
-    
-            if (!$exists) {
-                ProdukMember::create([
-                    'id_produk' => $item['id_produk'],
-                    'id_member' => $item['id_member'],
-                    'jumlah_terima' => $item['jumlah'],
-                ]);
+        DB::beginTransaction();
+
+        try {
+            foreach ($produkMember as $item) {
+                $produk = Produk::lockForUpdate()->find($item['id_produk']);
+
+                if (!$produk) {
+                    DB::rollBack();
+                    return redirect()->back()->with('error', 'Produk tidak ditemukan.');
+                }
+
+                $stokAvailable = $produk->stok;
+
+                if ($item['jumlah'] > $stokAvailable) {
+                    DB::rollBack();
+                    return redirect()->back()->with('error', "Jumlah produk {$produk->nama} melebihi stok yang tersedia ({$stokAvailable}).");
+                }
+
+                $produkMemberEntry = ProdukMember::where('id_produk', $item['id_produk'])
+                    ->where('id_member', $item['id_member'])
+                    ->first();
+
+                if ($produkMemberEntry) {
+                    $produkMemberEntry->jumlah_terima += $item['jumlah'];
+                    $produkMemberEntry->save();
+                } else {
+                    ProdukMember::create([
+                        'id_produk' => $item['id_produk'],
+                        'id_member' => $item['id_member'],
+                        'jumlah_terima' => $item['jumlah'],
+                    ]);
+                }
+
                 $produk->stok -= $item['jumlah'];
                 $produk->save();
-            }
-        }
 
-        session()->forget('produk_member');
-    
-        return redirect()->back()->with('success', 'Data produk member berhasil disimpan ke database.');
+
+                DistribusiProduk::create([
+                    'id_member' => $item['id_member'],
+                    'id_produk' => $item['id_produk'],
+                    'id_admin' => $adminId,
+                    'jumlah' => $item['jumlah'],
+                ]);
+            }
+
+            DB::commit();
+            session()->forget('produk_member');
+
+            return redirect()->back()->with('success', 'Data produk member berhasil disimpan ke database.');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
+        }
     }
-    
+
+
+
     public function updateSession(Request $request)
     {
         $index = $request->input('index');

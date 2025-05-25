@@ -78,7 +78,7 @@
                                             </button>
 
                                             <!-- Delete Button (using form to submit) -->
-                                            <form action="{{ route('admin.member.destroy', $m->id) }}" method="POST"
+                                            <form action="{{ route('superadmin.member.destroy', $m->id) }}" method="POST"
                                                 class="d-inline-block"
                                                 onsubmit="return confirm('Apakah Anda yakin ingin menghapus member ini?');">
                                                 @csrf
@@ -119,7 +119,7 @@
                 </div>
                 <div class="modal-body">
                     {{-- Form Tambah Member --}}
-                    <form id="formTambahMember" action="{{ route('admin.member.store') }}" method="POST" novalidate>
+                    <form id="formTambahMember" action="{{ route('superadmin.member.store') }}" method="POST" novalidate>
                         @csrf
                         <div class="modal-body">
 
@@ -164,7 +164,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- Form Edit Member -->
-                <form action="{{ route('admin.member.update', ':id') }}" method="POST" id="formEditMember" novalidate>
+                <form action="{{ route('superadmin.member.update', ':id') }}" method="POST" id="formEditMember" novalidate>
                     @csrf
                     @method('PUT')
                     <div class="modal-body">

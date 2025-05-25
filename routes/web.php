@@ -3,12 +3,15 @@
 use App\Http\Controllers\AddProdukMemberController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DistribusiProdukController;
 use App\Http\Controllers\MemberAdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukAdminController;
 use App\Http\Controllers\ProdukMemberController;
 use App\Http\Controllers\StokMemberController;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\TransaksiMemberController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,8 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('admin')->group(function () {
             Route::get('/dashboard', [AdminController::class, 'index'])->name('admin');
 
-            //Member
-            Route::resource('member', MemberAdminController::class)->names('admin.member');
+
 
             //Produk
             Route::resource('produk', ProdukAdminController::class)->names('produks');
@@ -49,13 +51,26 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/produk-members/update-session', [ProdukMemberController::class, 'updateSession'])->name('produks.members.updateSession');
             Route::delete('/produk-members/delete-session/{index}', [ProdukMemberController::class, 'deleteSession'])->name('produks.members.deleteSession');
 
-
+            //Distribusi Produk
+            Route::resource('distribusi-produk', DistribusiProdukController::class)->names('distribusi-produks');
 
             //Penjualan
             Route::resource('penjualan', PenjualanController::class)->names('penjualans');
-            // Route::prefix('penjualan')->group(function () {
-            //     Route::get('/', [AdminController::class, 'showPenjualan'])->name('admin.penjualan');
-            // });
+        });
+    });
+
+    //Route Supervisor
+    Route::group(['middleware' => ['role_auth:superadmin']], function () {
+        Route::prefix('superadmin')->group(function () {
+            Route::get('/dashboard', [SuperAdminController::class, 'index'])->name('superadmin');
+
+            //Member
+            Route::resource('member', MemberAdminController::class)->names('superadmin.member');
+            //Distribusi Produk
+            Route::resource('distribusi-produk', DistribusiProdukController::class)->names('distribusi-produks');
+
+            //Penjualan
+            Route::resource('penjualan', PenjualanController::class)->names('superadminpenjualans');
         });
     });
 
